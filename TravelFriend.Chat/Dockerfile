@@ -15,4 +15,4 @@ RUN dotnet publish "TravelFriend.Chat.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "TravelFriend.Chat.dll","--urls","http://47.106.139.187:5005"]
+ENTRYPOINT ["dotnet", "TravelFriend.Chat.dll","--urls","http://*:80"]
