@@ -36,7 +36,7 @@ namespace TravelFriend.Chat
                 //将用户加入到每个他所在的群组通知中
                 await Groups.AddToGroupAsync(Context.ConnectionId, team.TeamId);
                 //像用户所在的群组发登录通知
-                await Clients.GroupExcept(team.TeamId, Context.ConnectionId).SendAsync("Login", userName, nickName, team.TeamId);
+                await Clients.Group(team.TeamId).SendAsync("Login", userName, nickName, team.TeamId);
             }
         }
 
@@ -52,6 +52,10 @@ namespace TravelFriend.Chat
             if (userName != null)
             {
                 await Clients.Group(teamId).SendAsync("Received", teamId, userName, nickName, sendTime, content);
+            }
+            else
+            {
+                await Clients.Group(teamId).SendAsync("Received", teamId, "error", nickName, sendTime, content);
             }
         }
 
